@@ -3,69 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudios Eléctricos - Motores y Generadores</title>
-    <!-- Librería MathJax para que tus fórmulas en LaTeX se vean perfectas -->
-    <script src="https://polyfill.io"></script>
+    <title>AP ELECTRICIDAD - Estudios Técnicos</title>
+    <!-- Configuración e inclusión de MathJax para renderizar LaTeX perfectamente -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }
+        };
+    </script>
     <script id="MathJax-script" async src="https://jsdelivr.net"></script>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; }
-        h1, h2 { color: #0056b3; }
-        .calc-box { background: #f4f4f9; padding: 20px; border-radius: 8px; border-left: 5px solid #0056b3; margin-top: 20px; }
-        input, button { padding: 10px; margin: 5px 0; font-size: 16px; width: 100%; max-width: 200px; box-sizing: border-box; }
-        button { background: #0056b3; color: white; border: none; cursor: pointer; border-radius: 4px; }
-        button:hover { background: #004085; }
-        .resultado { font-weight: bold; font-size: 18px; margin-top: 15px; color: #28a745; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #333; line-height: 1.6; background-color: #ffffff; }
+        
+        /* Barra de navegación negra superior */
+        nav { background-color: #000000; color: #ffffff; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; font-weight: bold; font-size: 14px; }
+        nav .logo { font-size: 18px; letter-spacing: 1px; }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { color: #ffffff; text-decoration: none; }
+        nav ul li a:hover { color: #cccccc; }
+
+        /* Banner principal industrial */
+        .hero { background: #f4f4f6; padding: 60px 20px; text-align: center; border-bottom: 2px solid #e0e0e0; }
+        .hero h1 { font-size: 36px; font-weight: 800; text-transform: uppercase; color: #111111; }
+        
+        /* Contenedor del contenido */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .intro-text { font-size: 18px; font-weight: 600; margin-bottom: 40px; color: #222; }
+
+        /* Dos columnas */
+        .row { display: flex; flex-wrap: wrap; gap: 40px; }
+        .col-6 { flex: 1; min-width: 300px; }
+
+        .diagram-box { border: 1px solid #dddddd; padding: 20px; text-align: center; background: #fafafa; margin-top: 20px; border-radius: 4px; color: #666; font-style: italic; }
+
+        /* Caja de la calculadora */
+        .calc-box { background: #f9f9fb; padding: 25px; border-radius: 6px; border: 1px solid #e3e3e8; }
+        .calc-box h3 { margin-bottom: 15px; font-size: 20px; color: #111; border-bottom: 2px solid #000; padding-bottom: 5px; display: inline-block; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        
+        .btn-calc { background-color: #000000; color: #ffffff; width: 100%; padding: 12px; border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; border-radius: 4px; }
+        .btn-calc:hover { background-color: #333333; }
+        
+        .result-display { margin-top: 20px; padding: 15px; background: #eef9f0; border-left: 4px solid #28a745; border-radius: 4px; display: none; }
+        .result-title { font-weight: bold; color: #1e7e34; font-size: 16px; }
+        .result-val { font-size: 20px; font-weight: 800; color: #111; margin: 5px 0; }
     </style>
 </head>
 <body>
 
-    <h1>Evaluación de Motores Eléctricos: Normas y Cálculos</h1>
-    <p>Bienvenido a la plataforma de estudios de ingeniería eléctrica. Aquí analizaremos el comportamiento de máquinas rotativas bajo estándares internacionales (IEEE, NEMA, IEC).</p>
+    <nav>
+        <div class="logo">AP ELECTRICIDAD</div>
+        <ul>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="#">Obras</a></li>
+            <li><a href="#">Electricidad Industrial</a></li>
+        </ul>
+    </nav>
 
-    <h2>1. Resistencia de Aislamiento e Índice de Polarización (IEEE 43)</h2>
-    <p>El Índice de Polarización (\(IP\)) es una prueba crítica para determinar el estado de contaminación o humedad en los devanados de un motor eléctrico. Se calcula mediante la relación de la resistencia de aislamiento medida con un megóhmetro a los 10 minutos respecto a la medición de 1 minuto:</p>
-    
-    <!-- FÓRMULA MATEMÁTICA EN LATEX -->
-    <p>\[IP = \frac{R_{10\text{ min}}}{R_{1\text{ min}}}\]</p>
-
-    <div class="calc-box">
-        <h3>Calculadora Interactiva de IP</h3>
-        <label>Lectura a 1 Minuto (\(R_{1}\) en M\(\Omega\)):</label><br>
-        <input type="number" id="r1" value="100" step="any"><br>
-        
-        <label>Lectura a 10 Minutos (\(R_{10}\) en M\(\Omega\)):</label><br>
-        <input type="number" id="r10" value="250" step="any"><br><br>
-        
-        <button onclick="calcularIP()">Evaluar Motor</button>
-        
-        <div class="resultado" id="txtResultado">Resultado: -</div>
-        <div id="txtDiagnostico" style="font-weight: bold; margin-top: 5px;">Diagnóstico: -</div>
+    <div class="hero">
+        <h1>Arranque Directo y Evaluación de Motores Trifásicos</h1>
     </div>
 
-    <!-- LÓGICA DE CÁLCULO EN JAVASCRIPT (Pronto la migraremos a tu código en C) -->
+    <div class="container">
+        <p class="intro-text">Plataforma técnica para el análisis de aislamiento y comportamiento de máquinas rotativas bajo estándares internacionales (IEEE, NEMA, IEC).</p>
+
+        <div class="row">
+            <!-- Columna Izquierda: Teoría con fórmulas matemáticas corregidas -->
+            <div class="col-6">
+                <h2>Resistencia de Aislamiento (IEEE 43)</h2>
+                <br>
+                <p>El Índice de Polarización ($IP$) evalúa el estado del aislamiento en los devanados. Se calcula relacionando la resistencia medida a 10 minutos con la de 1 minuto:</p>
+                
+                <!-- Fórmula matemática que se renderizará como símbolo real -->
+                <p style="font-size: 24px; padding: 20px 0; text-align: center;">
+                    $$IP = \frac{R_{10\text{ min}}}{R_{1\text{ min}}}$$
+                </p>
+                
+                <p>Un valor inferior a 1.0 indica peligro inminente, mientras que valores entre 2.0 y 4.0 confirman un estado óptimo del motor para soportar el estrés del arranque directo.</p>
+                
+                <div class="diagram-box">
+                    [Próximamente: Diagrama de fuerza y control de CadeSimu]
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Calculadora Interactiva -->
+            <div class="col-6">
+                <div class="calc-box">
+                    <h3>Calculadora de Aislamiento</h3>
+                    
+                    <div class="form-group">
+                        <label>Lectura a 1 Minuto ($R_{1}$ en $M\Omega$):</label>
+                        <input type="number" id="r1" value="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Lectura a 10 Minutos ($R_{10}$ en $M\Omega$):</label>
+                        <input type="number" id="r10" value="250">
+                    </div>
+                    
+                    <button class="btn-calc" onclick="ejecutarAnalisis()">Evaluar Motor</button>
+                    
+                    <div class="result-display" id="panelResultado">
+                        <div class="result-title" id="txtDiag">Diagnóstico IEEE 43</div>
+                        <div class="result-val" id="txtIp">IP: --</div>
+                        <p id="txtDetalle" style="font-size: 14px; color: #555;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function calcularIP() {
+        function ejecutarAnalisis() {
             let r1 = parseFloat(document.getElementById('r1').value);
             let r10 = parseFloat(document.getElementById('r10').value);
+            let panel = document.getElementById('panelResultado');
             
             if (r1 <= 0 || isNaN(r1) || isNaN(r10)) {
-                document.getElementById('txtResultado').innerText = "Valores inválidos";
+                alert("Introduce valores numéricos válidos mayores a cero.");
                 return;
             }
 
-            // Operación matemática básica
             let ip = r10 / r1;
-            document.getElementById('txtResultado').innerText = "Resultado IP: " + ip.toFixed(2);
-
-            // Diagnóstico automático bajo criterios IEEE 43
+            document.getElementById('txtIp').innerText = "Índice de Polarización: " + ip.toFixed(2);
+            
             let diag = "";
-            if (ip < 1.0) diag = "❌ Peligroso (Posible falla de aislamiento severa)";
-            else if (ip < 1.5) diag = "⚠️ Malo / Cuestionable (Humedad o suciedad presente)";
-            else if (ip < 2.0) diag = "👍 Aceptable";
-            else if (ip <= 4.0) diag = "⭐ Bueno / Excelente";
-            else diag = "🔍 Muy alto (Aislamiento moderno tipo película o devanado muy seco)";
+            let detalle = "";
+            let colorBorder = "#28a745";
+            let colorBg = "#eef9f0";
 
-            document.getElementById('txtDiagnostico').innerText = "Diagnóstico IEEE 43: " + diag;
+            if (ip < 1.0) {
+                diag = "❌ PELIGROSO";
+                detalle = "El aislamiento presenta una falla severa o acumulación crítica de humedad. No energizar el motor.";
+                colorBorder = "#dc3545"; colorBg = "#fdf3f4";
+            } else if (ip < 1.5) {
+                diag = "⚠️ MALO / CUESTIONABLE";
+                detalle = "Estado deficiente. Se recomienda realizar limpieza y secado del estator bajo estándar IEEE.";
+                colorBorder = "#ffc107"; colorBg = "#fffbeb";
+            } else if (ip <= 4.0) {
+                diag = "👍 BUENO / EXCELENTE";
+                detalle = "El devanado cumple plenamente con los rangos operativos seguros para arranques directos.";
+                colorBorder = "#28a745"; colorBg = "#eef9f0";
+            } else {
+                diag = "🔍 MUY ALTO (REVISAR)";
+                detalle = "Aislamiento sumamente seco o aislamiento moderno tipo película termoplástica.";
+                colorBorder = "#17a2b8"; colorBg = "#f0f9fa";
+            }
+
+            document.getElementById('txtDiag').innerText = "Criterio IEEE 43: " + diag;
+            document.getElementById('txtDetalle').innerText = detalle;
+            
+            panel.style.borderLeftColor = colorBorder;
+            panel.style.backgroundColor = colorBg;
+            panel.style.display = "block";
         }
     </script>
 </body>
