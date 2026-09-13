@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudios Eléctricos - Motores y Generadores</title>
+    <!-- Librería MathJax para que tus fórmulas en LaTeX se vean perfectas -->
+    <script src="https://polyfill.io"></script>
+    <script id="MathJax-script" async src="https://jsdelivr.net"></script>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; color: #333; }
+        h1, h2 { color: #0056b3; }
+        .calc-box { background: #f4f4f9; padding: 20px; border-radius: 8px; border-left: 5px solid #0056b3; margin-top: 20px; }
+        input, button { padding: 10px; margin: 5px 0; font-size: 16px; width: 100%; max-width: 200px; box-sizing: border-box; }
+        button { background: #0056b3; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #004085; }
+        .resultado { font-weight: bold; font-size: 18px; margin-top: 15px; color: #28a745; }
+    </style>
+</head>
+<body>
+
+    <h1>Evaluación de Motores Eléctricos: Normas y Cálculos</h1>
+    <p>Bienvenido a la plataforma de estudios de ingeniería eléctrica. Aquí analizaremos el comportamiento de máquinas rotativas bajo estándares internacionales (IEEE, NEMA, IEC).</p>
+
+    <h2>1. Resistencia de Aislamiento e Índice de Polarización (IEEE 43)</h2>
+    <p>El Índice de Polarización (\(IP\)) es una prueba crítica para determinar el estado de contaminación o humedad en los devanados de un motor eléctrico. Se calcula mediante la relación de la resistencia de aislamiento medida con un megóhmetro a los 10 minutos respecto a la medición de 1 minuto:</p>
+    
+    <!-- FÓRMULA MATEMÁTICA EN LATEX -->
+    <p>\[IP = \frac{R_{10\text{ min}}}{R_{1\text{ min}}}\]</p>
+
+    <div class="calc-box">
+        <h3>Calculadora Interactiva de IP</h3>
+        <label>Lectura a 1 Minuto (\(R_{1}\) en M\(\Omega\)):</label><br>
+        <input type="number" id="r1" value="100" step="any"><br>
+        
+        <label>Lectura a 10 Minutos (\(R_{10}\) en M\(\Omega\)):</label><br>
+        <input type="number" id="r10" value="250" step="any"><br><br>
+        
+        <button onclick="calcularIP()">Evaluar Motor</button>
+        
+        <div class="resultado" id="txtResultado">Resultado: -</div>
+        <div id="txtDiagnostico" style="font-weight: bold; margin-top: 5px;">Diagnóstico: -</div>
+    </div>
+
+    <!-- LÓGICA DE CÁLCULO EN JAVASCRIPT (Pronto la migraremos a tu código en C) -->
+    <script>
+        function calcularIP() {
+            let r1 = parseFloat(document.getElementById('r1').value);
+            let r10 = parseFloat(document.getElementById('r10').value);
+            
+            if (r1 <= 0 || isNaN(r1) || isNaN(r10)) {
+                document.getElementById('txtResultado').innerText = "Valores inválidos";
+                return;
+            }
+
+            // Operación matemática básica
+            let ip = r10 / r1;
+            document.getElementById('txtResultado').innerText = "Resultado IP: " + ip.toFixed(2);
+
+            // Diagnóstico automático bajo criterios IEEE 43
+            let diag = "";
+            if (ip < 1.0) diag = "❌ Peligroso (Posible falla de aislamiento severa)";
+            else if (ip < 1.5) diag = "⚠️ Malo / Cuestionable (Humedad o suciedad presente)";
+            else if (ip < 2.0) diag = "👍 Aceptable";
+            else if (ip <= 4.0) diag = "⭐ Bueno / Excelente";
+            else diag = "🔍 Muy alto (Aislamiento moderno tipo película o devanado muy seco)";
+
+            document.getElementById('txtDiagnostico').innerText = "Diagnóstico IEEE 43: " + diag;
+        }
+    </script>
+</body>
+</html>
